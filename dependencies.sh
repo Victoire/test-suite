@@ -23,7 +23,7 @@ composer install --prefer-dist
 
 if [[ $1 == *"widget"* ]]; then
     revision=$(cd ../../../ | git rev-parse HEAD)
-    composer require friendsofvictoire/$1#$revision
+    composer require $1#$revision
 fi
 
 bower install
