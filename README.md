@@ -58,9 +58,10 @@ If it doesn't, only Victoire core tests will be launched.
 
 On your repository go to `Settings`/`Integrations & services`/`Services` and add CircleCI service.
 
-## Add your first Behat test
+## Add Behat tests
 
-`.feature` files must be stored in `Tests/Features` folder. 
+`.feature` files must be stored in `Tests/Features` folder.
+Take a look at victoire/victoire repository in `Tests/Features/Context` folder to use contexts based on Victoire UI.
 
 ##MIT License
 
