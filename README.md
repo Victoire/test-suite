@@ -6,7 +6,7 @@ This test suite must be used as a git submodule in your repository.
 ## Add submodule
 
 ```sh
-git add submodule git@github.com:Victoire/test-suite.git victoire-test-suite
+git submodule add git@github.com:Victoire/test-suite.git victoire-test-suite
 ```
 
 If you need to update the test suite, run `git submodule update --init` command.
