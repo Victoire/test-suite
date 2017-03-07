@@ -26,7 +26,7 @@ if [[ $1 == *"widget"* ]]; then
     composer require $1#$revision
 fi
 
-bower install
+(cd Bundle/UIBundle/Resources/config/ && bower install)
 php Tests/Functionnal/bin/console --env=ci doctrine:database:create --no-debug
 php Tests/Functionnal/bin/console --env=ci doctrine:schema:create --no-debug
 php Tests/Functionnal/bin/console --env=ci cache:warmup --no-debug
