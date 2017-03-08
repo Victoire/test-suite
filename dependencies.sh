@@ -1,17 +1,18 @@
 #!/bin/bash
 
+echo "memory_limit = 2048M" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
+echo "always_populate_raw_post_data=-1" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/post_data.ini
+if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
+  sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
+  echo "xdebug enabled"
+fi
+
 if [[ $1 == *"widget"* ]]; then
     composer install --prefer-dist
     cd vendor/victoire/victoire/
 fi
 
 cp Tests/Functionnal/app/config/parameters.yml.dist Tests/Functionnal/app/config/parameters.yml
-echo "memory_limit = 2048M" > /opt/circleci/php/$(phpenv global)/etc/conf.d/memory.ini
-echo "always_populate_raw_post_data=-1" > /opt/circleci/php/$(phpenv global)/etc/conf.d/post_data.ini
-if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
-  sed -i 's/^;//' /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
-  echo "xdebug enabled"
-fi
 if [ -z "${RUN_NIGHTLY_BUILD}" ]; then
   sed -i '/CoverageContext/d' behat.yml
   sed -i '/CoverageContext/d' behat.yml.dist
