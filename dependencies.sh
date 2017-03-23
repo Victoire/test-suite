@@ -8,6 +8,7 @@ if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
 fi
 
 if [[ $1 == *"widget"* ]]; then
+    composer config minimum-stability dev
     composer install --prefer-dist
     cd vendor/victoire/victoire/
 fi
@@ -23,6 +24,7 @@ mkdir fails
 composer install --prefer-dist
 
 if [[ $1 == *"widget"* ]]; then
+    composer config minimum-stability dev
     revision=$(cd ../../../ | git rev-parse HEAD)
     composer require $1#$revision
 fi
