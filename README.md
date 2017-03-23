@@ -63,6 +63,6 @@ On your repository go to `Settings`/`Integrations & services`/`Services` and add
 `.feature` files must be stored in `Tests/Features` folder.
 Take a look at victoire/victoire repository in `Tests/Features/Context` folder to use contexts based on Victoire UI.
 
-##MIT License
+## MIT License
 
 License can be found [here](LICENSE).
