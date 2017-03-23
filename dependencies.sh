@@ -9,7 +9,7 @@ fi
 
 if [[ $1 == *"widget"* ]]; then
     composer config minimum-stability dev
-    composer install --prefer-dist
+    php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
     cd vendor/victoire/victoire/
 fi
 
@@ -21,12 +21,11 @@ if [ -z "${RUN_NIGHTLY_BUILD}" ]; then
 fi
 npm install less
 mkdir fails
-composer install --prefer-dist
+php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
 
 if [[ $1 == *"widget"* ]]; then
-    composer config minimum-stability dev
     revision=$(cd ../../../ | git rev-parse HEAD)
-    composer require $1#$revision
+    php -d memory_limit=-1 /usr/local/bin/composer require $1 dev-master#$revision
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
