@@ -25,7 +25,8 @@ php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
 
 if [[ $1 == *"widget"* ]]; then
     revision=$(cd ../../../ | git rev-parse HEAD)
-    php -d memory_limit=-1 /usr/local/bin/composer require $1 dev-master#$revision
+    branch=$(cd ../../../ | git rev-parse --abbrev-ref HEAD)
+    php -d memory_limit=-1 /usr/local/bin/composer require $1 dev-$branch#$revision
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
