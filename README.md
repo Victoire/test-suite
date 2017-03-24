@@ -1,4 +1,4 @@
-# Victoire test suite
+# Victoire test suite 
 
 Victoire and its Widgets must implement Continous Integration with CircleCI and Behat tests.
 This test suite must be used as a git submodule in your repository.
