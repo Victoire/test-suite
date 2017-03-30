@@ -27,6 +27,7 @@ if [[ $1 == *"widget"* ]]; then
     revision=$(cd ../../../ | git rev-parse HEAD)
     branch=$(cd ../../../ | git rev-parse --abbrev-ref HEAD)
     php -d memory_limit=-1 /usr/local/bin/composer require $1 dev-$branch#$revision
+    php Tests/App/bin/console --env=ci victoire:testBundles:kernelAdd --no-debug
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
