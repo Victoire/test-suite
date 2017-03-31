@@ -26,15 +26,15 @@ php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
 if [[ $1 == *"widget"* ]]; then
     revision=$(cd ../../../ | git rev-parse HEAD)
     branch=$(cd ../../../ | git rev-parse --abbrev-ref HEAD)
-    php -d memory_limit=-1 /usr/local/bin/composer require $1 dev-$branch#$revision
+    php -d memory_limit=-1 /usr/local/bin/composer require $1 dev-$branch#$revision --prefer-dist
     php Tests/App/bin/console --env=ci victoire:testBundles:kernelAdd --no-debug
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
 php Tests/App/bin/console --env=ci doctrine:database:create --no-debug
 php Tests/App/bin/console --env=ci doctrine:schema:create --no-debug
-php Tests/App/bin/console --env=ci cache:warmup --no-debug
-php Tests/App/bin/console --env=domain cache:warmup --no-debug
+php Tests/App/bin/console --env=ci cache:clear --no-debug
+php Tests/App/bin/console --env=domain cache:clear --no-debug
 php Tests/App/bin/console --env=ci victoire:generate:view --no-debug
 php Tests/App/bin/console --env=ci assets:install Tests/App/web --no-debug
 php Tests/App/bin/console --env=ci bazinga:js-translation:dump --no-debug
