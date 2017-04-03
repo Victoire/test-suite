@@ -8,7 +8,6 @@ if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
 fi
 
 if [[ $1 == *"widget"* ]]; then
-    composer config minimum-stability dev
     php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
     cd vendor/victoire/victoire/
 fi
