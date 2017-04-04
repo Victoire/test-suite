@@ -10,6 +10,9 @@ fi
 if [[ $1 == *"widget"* ]]; then
     php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
     cd vendor/victoire/victoire/
+    if [ -f Tests/config.yml ]; then
+        sed -i '2i\    - { resource: ./../../../../../../../Tests/config.yml }' Tests/App/app/config/config_base.yml
+    fi
 fi
 
 cp Tests/App/app/config/parameters.yml.dist Tests/App/app/config/parameters.yml
