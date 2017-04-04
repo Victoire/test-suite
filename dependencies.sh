@@ -7,6 +7,10 @@ if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
   echo "xdebug enabled"
 fi
 
+if [ -f Tests/dependencies.sh ]; then
+    bash Tests/dependencies.sh
+fi
+
 if [[ $1 == *"widget"* ]]; then
     php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
     if [ -f Tests/config.yml ]; then
