@@ -61,7 +61,7 @@ On your repository go to `Settings`/`Integrations & services`/`Services` and add
 ## Add Behat tests
 
 `.feature` files must be stored in `Tests/Features` folder.
-Take a look at victoire/victoire repository in `Tests/Features/Context` folder to use contexts based on Victoire UI.
+Take a look at [Victoire `Tests/Features/Context` folder](https://github.com/Victoire/victoire/tree/master/Tests/Features/Context) to use contexts based on Victoire UI.
 
 ## Add Bundles to Victoire Test AppKernel
 
