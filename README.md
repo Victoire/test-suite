@@ -63,6 +63,59 @@ On your repository go to `Settings`/`Integrations & services`/`Services` and add
 `.feature` files must be stored in `Tests/Features` folder.
 Take a look at victoire/victoire repository in `Tests/Features/Context` folder to use contexts based on Victoire UI.
 
+## Add Bundles to Victoire Test AppKernel
+
+You may need to register your Bundle and other Bundles your required in Victoire Test Appkernel. You can do so by adding a `Tests/Bundles.php` file:
+
+```php
+<?php
+
+$victoireTestBundles = [
+    new Victoire\Widget\SearchBundle\VictoireWidgetSearchBundle(),
+    new FOS\ElasticaBundle\FOSElasticaBundle(),
+];
+```
+
+## Add config to Victoire Test environment
+
+You may also need to add config. You can do so by adding a `Tests/config.yml` file:
+
+```yml
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        ...
+```
+
+## Add new Contexts
+
+You can also add specific Contexts for your Behat tests. Simply add as many Contexts as you need in a `Tests/Context` folder. These php files must match the pattern name `*Context.php`:
+
+```php
+<?php
+
+namespace Victoire\Widget\SearchBundle\Tests\Context;
+
+use Knp\FriendlyContexts\Context\RawMinkContext;
+
+class WidgetContext extends RawMinkContext
+{
+    /**
+     * @When /^I test a specific step from my Bundle/
+     */
+    public function iTestA specificStepFromMyBundle()
+    {
+        ...
+    }
+}
+
+```
+
+## Run external dependencies
+
+You can run external dependencies by adding a `Tests/dependencies.sh` file.
+
 ## MIT License
 
 License can be found [here](LICENSE).
