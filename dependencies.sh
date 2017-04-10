@@ -32,7 +32,7 @@ php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
 if [[ $1 != *"victoire/victoire"* ]]; then
     revision=$(cd ../../../ | git rev-parse HEAD)
     branch=$(cd ../../../ | git rev-parse --abbrev-ref HEAD)
-    php -d memory_limit=-1 /usr/local/bin/composer require $1 dev-$branch#$revision --prefer-dist
+    php -d memory_limit=-1 /usr/local/bin/composer require $1:dev-$branch#$revision --prefer-dist
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
