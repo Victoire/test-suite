@@ -7,10 +7,6 @@ if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
   echo "xdebug enabled"
 fi
 
-if [ -f Tests/dependencies.sh ]; then
-    bash Tests/dependencies.sh
-fi
-
 if [[ $1 != *"victoire/victoire"* ]]; then
     php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
     if [ -f Tests/config.yml ]; then
@@ -33,6 +29,10 @@ if [[ $1 != *"victoire/victoire"* ]]; then
     revision=$(cd ../../../ | git rev-parse HEAD)
     branch=$(cd ../../../ | git rev-parse --abbrev-ref HEAD)
     php -d memory_limit=-1 /usr/local/bin/composer require $1:dev-$branch#$revision --prefer-dist
+fi
+
+if [ -f ../../../Tests/dependencies.sh ]; then
+    bash ../../../Tests/dependencies.sh
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
