@@ -8,7 +8,7 @@ if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
 fi
 
 if [[ $1 != *"victoire/victoire"* ]]; then
-    php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
+    php -d memory_limit=-1 /usr/local/bin/composer install --prefer-source
     if [ -f Tests/config.yml ]; then
         sed -i '2i\    - { resource: ./../../../../../../../Tests/config.yml }' vendor/victoire/victoire/Tests/App/app/config/config_base.yml
     fi
@@ -26,8 +26,8 @@ mkdir fails
 php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
 
 if [[ $1 != *"victoire/victoire"* ]]; then
-    revision=$(cd ../../../ | git rev-parse HEAD)
-    branch=$(cd ../../../ | git rev-parse --abbrev-ref HEAD)
+    revision=$(cd ../../../ && git rev-parse HEAD)
+    branch=$(cd ../../../ && git rev-parse --abbrev-ref HEAD)
     php -d memory_limit=-1 /usr/local/bin/composer require $1:dev-$branch#$revision --prefer-dist
 fi
 
