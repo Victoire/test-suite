@@ -5,6 +5,7 @@
 sum=0
 
 echo "memory_limit = 2048M" > /opt/circleci/php/$(phpenv global)/etc/conf.d/memory.ini
+sum=$(( $sum + $? ))
 echo "always_populate_raw_post_data=-1" > /opt/circleci/php/$(phpenv global)/etc/conf.d/post_data.ini
 if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
   sed -i 's/^;//' /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
@@ -51,6 +52,7 @@ php Tests/App/bin/console --env=domain cache:clear --no-debug && \
 php Tests/App/bin/console --env=ci victoire:generate:view --no-debug && \
 php Tests/App/bin/console --env=ci assets:install Tests/App/web --no-debug && \
 php Tests/App/bin/console --env=ci bazinga:js-translation:dump --no-debug && \
+php Tests/App/bin/console --env=domain bazinga:js-translation:dump --no-debug && \
 php Tests/App/bin/console --env=ci fos:js:dump --target="Tests/App/web/js/fos_js_routes_test.js" --no-debug && \
 php Tests/App/bin/console --env=domain fos:js:dump --target="Tests/App/web/js/fos_js_routes_domain.js" --no-debug && \
 php Tests/App/bin/console --env=ci assetic:dump --no-debug
