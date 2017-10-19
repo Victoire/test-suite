@@ -28,7 +28,7 @@ if [ -z "${RUN_NIGHTLY_BUILD}" ]; then
   sed -i '/CoverageContext/d' behat.yml.dist
   echo "CoverageContext disabled"
 fi
-npm install less && \
+npm install less@2.7.2 && \
 mkdir fails && \
 php -d memory_limit=-1 /usr/local/bin/composer install --prefer-dist
 sum=$(( $sum + $? ))
