@@ -60,7 +60,7 @@ sum=$(( $sum + $? ))
 
 wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 nohup java -jar selenium-server-standalone-2.53.1.jar > /dev/null 2>&1 &
-php Tests/App/bin/console --env=ci server:start 127.0.0.1:8000 -r Tests/App/app/config/router_ci.php --no-debug > server.log 2>&1
+php Tests/App/bin/console --env=ci server:start 127.0.0.1:8000 -r Tests/App/app/config/router_ci.php --docroot=Tests/App/web/ --no-debug > server.log 2>&1
 sum=$(( $sum + $? ))
 nohup Xvfb :99 -ac 2>/dev/null &
 sleep 3
