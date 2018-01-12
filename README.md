@@ -9,7 +9,7 @@ This test suite must be used as a git submodule in your repository.
 git submodule add git@github.com:Victoire/test-suite.git victoire-test-suite
 ```
 
-If you need to update the test suite, run `git submodule update --init` command.
+If you need to update the test suite, run `git submodule update --remote --merge` command.
 
 ## Add CircleCI configuration file
 
