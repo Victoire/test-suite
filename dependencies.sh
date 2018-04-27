@@ -36,6 +36,9 @@ sum=$(( $sum + $? ))
 if [[ $1 != *"victoire/victoire"* ]]; then
     revision=$(cd ../../../ && git rev-parse HEAD)
     branch=$(cd ../../../ && git rev-parse --abbrev-ref HEAD)
+    sed -i 's/"name": "victoire\/victoire",/"name": "victoire\/victoire",\
+    "repositories": [{"type": "vcs", "url": "${CIRCLE_REPOSITORY_URL}"}],/' composer.json
+
     php -d memory_limit=-1 /usr/local/bin/composer require $1:dev-$branch#$revision --prefer-dist
     sum=$(( $sum + $? ))
 fi
@@ -45,6 +48,7 @@ if [ -f ../../../Tests/dependencies.sh ]; then
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
+php Tests/App/bin/console --env=ci doctrine:database:create --no-debug && \
 php Tests/App/bin/console --env=ci doctrine:database:create --no-debug && \
 php Tests/App/bin/console --env=ci doctrine:schema:create --no-debug && \
 php Tests/App/bin/console --env=ci cache:clear --no-debug && \
