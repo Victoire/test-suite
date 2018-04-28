@@ -47,7 +47,7 @@ if [ -f ../../../Tests/dependencies.sh ]; then
     bash ../../../Tests/dependencies.sh
 fi
 
-(cd Bundle/UIBundle/Resources/config/ && bower install)
+php Tests/App/bin/console --env=ci victoire:ui:fetch --force Bundle/UIBundle/Resources/config && \
 php Tests/App/bin/console --env=ci doctrine:database:create --no-debug && \
 php Tests/App/bin/console --env=ci doctrine:database:create --no-debug && \
 php Tests/App/bin/console --env=ci doctrine:schema:create --no-debug && \
