@@ -36,8 +36,11 @@ sum=$(( $sum + $? ))
 if [[ $1 != *"victoire/victoire"* ]]; then
     revision=$(cd ../../../ && git rev-parse HEAD)
     branch=$(cd ../../../ && git rev-parse --abbrev-ref HEAD)
+    
+    # https://stackoverflow.com/questions/584894/environment-variable-substitution-in-sed
+    # Manage varenv in sed
     sed -i 's/"name": "victoire\/victoire",/"name": "victoire\/victoire",\
-    "repositories": [{"type": "vcs", "url": "${CIRCLE_REPOSITORY_URL}"}],/' composer.json
+    "repositories": [{"type": "vcs", "url": "'"${CIRCLE_REPOSITORY_URL}"'"}],/' composer.json
 
     php -d memory_limit=-1 /usr/local/bin/composer require $1:dev-$branch#$revision --prefer-dist
     sum=$(( $sum + $? ))
