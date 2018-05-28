@@ -24,7 +24,6 @@ fi
 
 cp Tests/App/app/config/parameters.yml.dist Tests/App/app/config/parameters.yml
 if [ -z "${RUN_NIGHTLY_BUILD}" ]; then
-  sed -i '/CoverageContext/d' behat.yml
   sed -i '/CoverageContext/d' behat.yml.dist
   echo "CoverageContext disabled"
 fi
@@ -39,8 +38,7 @@ if [[ $1 != *"victoire/victoire"* ]]; then
     
     # https://stackoverflow.com/questions/584894/environment-variable-substitution-in-sed
     # Manage varenv in sed
-    sed -i 's/"name": "victoire\/victoire",/"name": "victoire\/victoire",\
-    "repositories": [{"type": "vcs", "url": "'"${CIRCLE_REPOSITORY_URL}"'"}],/' composer.json
+    sed -i 's@"name": "victoire/victoire",@"name": "victoire/victoire","repositories": [{"type": "vcs", "url": "'"${CIRCLE_REPOSITORY_URL}"'"}],@' composer.json
 
     php -d memory_limit=-1 /usr/local/bin/composer require $1:dev-$branch#$revision --prefer-dist
     sum=$(( $sum + $? ))
@@ -51,7 +49,6 @@ if [ -f ../../../Tests/dependencies.sh ]; then
 fi
 
 (cd Bundle/UIBundle/Resources/config/ && bower install)
-php Tests/App/bin/console --env=ci doctrine:database:create --no-debug && \
 php Tests/App/bin/console --env=ci doctrine:database:create --no-debug && \
 php Tests/App/bin/console --env=ci doctrine:schema:create --no-debug && \
 php Tests/App/bin/console --env=ci cache:clear --no-debug && \
