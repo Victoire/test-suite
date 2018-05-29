@@ -34,7 +34,8 @@ sum=$(( $sum + $? ))
 
 if [[ $1 != *"victoire/victoire"* ]]; then
     revision=$(cd ../../../ && git rev-parse HEAD)
-    branch=`curl -s https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${CIRCLE_PR_NUMBER} | jq -r '.head.ref'`
+    url="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$CIRCLE_PR_NUMBER";
+    branch=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$url" | jq '.head.ref' | tr -d '""')
 
     # https://stackoverflow.com/questions/584894/environment-variable-substitution-in-sed
     # Manage varenv in sed
