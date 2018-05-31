@@ -15,7 +15,8 @@ if [[ $1 != *"victoire/victoire"* ]]; then
         # Alter the namespace to remove ';' then use triple backslashes instead of a single backslash
         namespace="$(cat Tests/Context/WidgetContext.php | sed -rn 's/namespace ((\\{1,2}\w+|\w+\\{1,2})(\w+\\{0,2})+)/\1/p' | sed -r 's/;+$//' | sed -e 's|\\|\\\\\\|g' )"
         # Add WidgetContext path in the behat.yml.dist file to load the context
-        sed -i "s@contexts:@contexts: \n\t\t\t\t  - $namespace\\\WidgetContext@" vendor/victoire/victoire/behat.yml.dist
+        sed -i "s@contexts:@contexts: \n                 - $namespace\\\WidgetContext@" vendor/victoire/victoire/behat.yml.dist
+        rm Tests/Context/WidgetContext.php
     fi
     cd vendor/victoire/victoire/
 else
